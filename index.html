@@ -279,6 +279,7 @@ document.getElementById("done").addEventListener("click",()=>{
   if(total){
     v.insertAdjacentHTML("beforeend",'<button class="share" id="share">Partager en story</button>');
     document.getElementById("share").addEventListener("click",shareStory);
+    prepareStory();
   }
   v.scrollIntoView({behavior:"smooth",block:"center"});
 });
@@ -372,36 +373,63 @@ function buildStory(){
   return c;
 }
 
-async function shareStory(){
-  const btn=document.getElementById("share");
-  if(btn){btn.disabled=true;btn.textContent="Préparation…";}
-  const done=t=>{if(btn){btn.disabled=false;btn.textContent=t||"Partager en story";}};
+let storyBlob=null, storyBusy=false;
+
+/* Prépare l'image à l'avance : le clic doit pouvoir partager immédiatement,
+   sinon le navigateur considère que le geste utilisateur a expiré. */
+async function prepareStory(){
+  storyBlob=null; storyBusy=true;
   try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
-  const canvas=buildStory();
-  canvas.toBlob(async blob=>{
-    /* 1. dans le visualiseur d'artefact : passer par la capacité downloads */
-    try{
-      const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
-      if(dl){
-        try{ await dl.save({filename:"ma-coalition.png",data:blob}); done("Image enregistrée"); }
-        catch(err){ done(err && err.code==="declined" ? "Partager en story" : "Enregistrement indisponible"); }
-        return;
-      }
-    }catch(e){}
-    /* 2. site hébergé : partage natif, sinon téléchargement */
-    const file=new File([blob],"ma-coalition.png",{type:"image/png"});
-    try{
-      if(navigator.canShare&&navigator.canShare({files:[file]})){
-        await navigator.share({files:[file]}); done(); return;
-      }
-    }catch(e){ done(); return; }
-    try{
-      const u=URL.createObjectURL(blob),a=document.createElement("a");
-      a.href=u;a.download="ma-coalition.png";document.body.appendChild(a);a.click();a.remove();
-      setTimeout(()=>URL.revokeObjectURL(u),4000);
-      done("Image enregistrée");
-    }catch(e){ done("Enregistrement indisponible"); }
-  },"image/png");
+  try{
+    const canvas=buildStory();
+    storyBlob=await new Promise(r=>canvas.toBlob(r,"image/png"));
+  }catch(e){ storyBlob=null; }
+  storyBusy=false;
+}
+
+function saveViaLink(blob,btn){
+  try{
+    const u=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=u;a.download="ma-coalition.png";document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),6000);
+    if(btn) btn.textContent="Image enregistrée";
+  }catch(e){ if(btn) btn.textContent="Échec de l'enregistrement"; }
+}
+
+function shareStory(){
+  const btn=document.getElementById("share");
+  if(!storyBlob){
+    if(btn) btn.textContent = storyBusy ? "Préparation…" : "Réessaie dans 1 s";
+    prepareStory();
+    return;
+  }
+  const file=new File([storyBlob],"ma-coalition.png",{type:"image/png"});
+
+  /* 1. partage natif (mobile) — appelé sans aucun await préalable */
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    navigator.share({files:[file],title:"Ma coalition"})
+      .then(()=>{ if(btn) btn.textContent="Partagé"; })
+      .catch(err=>{
+        if(err&&err.name==="AbortError"){ if(btn) btn.textContent="Partager en story"; return; }
+        saveViaLink(storyBlob,btn);
+      });
+    return;
+  }
+
+  /* 2. visualiseur d'artefact Claude */
+  if(window.claude&&window.claude.use){
+    if(btn) btn.textContent="Préparation…";
+    window.claude.use("downloads").then(dl=>{
+      if(!dl) return saveViaLink(storyBlob,btn);
+      dl.save({filename:"ma-coalition.png",data:storyBlob})
+        .then(()=>{ if(btn) btn.textContent="Image enregistrée"; })
+        .catch(()=>{ if(btn) btn.textContent="Partager en story"; });
+    }).catch(()=>saveViaLink(storyBlob,btn));
+    return;
+  }
+
+  /* 3. ordinateur : téléchargement direct */
+  saveViaLink(storyBlob,btn);
 }
 
 </script>
