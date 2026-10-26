@@ -97,19 +97,6 @@ button.primary:hover{background:var(--orange-dk);border-color:var(--orange-dk);}
 .verdict ul{margin:12px 0 0;padding-left:18px;}
 .verdict li{font-size:14px;line-height:1.5;margin-bottom:8px;}
 
-.sendbox{margin-top:20px;padding-top:18px;border-top:1px solid rgba(0,0,0,.12);}
-.sendtitle{font-weight:600;font-size:14.5px;margin:0 0 12px;text-align:center;}
-.sendtitle.ok{color:var(--blue);font-family:var(--display);font-weight:800;font-size:20px;}
-.sendrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
-.sendrow input{flex:1 1 220px;max-width:280px;font-family:var(--sans);font-size:15px;padding:11px 14px;border:2px solid var(--ink);border-radius:9px;background:#fff;color:var(--ink);}
-.sendrow input:focus{outline:none;border-color:var(--blue);}
-.sendrow button{background:var(--orange);border-color:var(--orange);color:#fff;}
-.sendrow button:hover{background:var(--orange-dk);border-color:var(--orange-dk);}
-.sendrow button:disabled{opacity:.6;cursor:default;}
-.sendok{display:flex;gap:8px;align-items:flex-start;max-width:420px;margin:12px auto 0;font-size:12px;line-height:1.45;color:var(--muted);}
-.sendok input{margin-top:2px;flex:0 0 auto;}
-.sendmsg{min-height:18px;margin:10px 0 0;font-size:12.5px;text-align:center;color:var(--orange);}
-.sendmsg.ok{color:var(--muted);}
 .verdict .share{display:block;margin:18px auto 0;background:var(--ink);border-color:var(--ink);color:#fff;}
 .verdict .share:hover{background:var(--orange);border-color:var(--orange);}
 .verdict .share:disabled{opacity:.6;cursor:default;}
@@ -133,7 +120,7 @@ button.primary:hover{background:var(--orange-dk);border-color:var(--orange-dk);}
   <div class="head">
     <div class="badge">Élections 2026</div>
     <div class="titlebar"><h1>Ma coalition</h1></div>
-    <p class="lede">Eux n'y arrivent pas.<br><em>À toi de jouer.</em><br>Compose ta coalition : il te faut 61 sièges.</p>
+    <p class="lede"><em>À toi de jouer.</em><br>Compose ta coalition : il te faut 61 sièges.</p>
   </div>
 
   <div class="stage">
@@ -169,8 +156,6 @@ button.primary:hover{background:var(--orange-dk);border-color:var(--orange-dk);}
       <li>Avigdor Liberman — Jim Mattis — <a href="https://commons.wikimedia.org/wiki/File:Avigdor_Lieberman_2017.jpg" target="_blank" rel="noopener">fichier</a> — domaine public</li>
       <li>Yaakov Asher — <a href="https://commons.wikimedia.org/wiki/Category:Ya%27akov_Asher" target="_blank" rel="noopener">Wikimedia Commons</a> — auteur et licence à compléter</li>
       <li>Yousef Jabareen — Amir Deeb — <a href="https://commons.wikimedia.org/wiki/File:Yousef_Jabareen_2021.png" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
-      <li>Yoaz Hendel — Yaniv Morozovsky — <a href="https://commons.wikimedia.org/wiki/File:%D7%99%D7%95%D7%A2%D7%96-%D7%94%D7%A0%D7%93%D7%9C-%D7%91%D7%90%D7%95%D7%9C%D7%A4%D7%9F-103fm-%D7%A6%D7%99%D7%9C%D7%95%D7%9D-%D7%99%D7%A0%D7%99%D7%91-%D7%9E%D7%95%D7%A8%D7%95%D7%96%D7%95%D7%91%D7%A1%D7%A7%D7%99.jpg" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
-      <li>Ofer Winter — Nadav Margalit — <a href="https://commons.wikimedia.org/wiki/File:Ofer_Winter_2026.png" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
       <li>Aryé Deri — Revach Productions — <a href="https://commons.wikimedia.org/wiki/File:%D7%90%D7%A8%D7%99%D7%94_%D7%93%D7%A8%D7%A2%D7%99_2.jpg" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
       <li>Itamar Ben Gvir — Alon Nuriel — <a href="https://commons.wikimedia.org/wiki/File:Itamar_Ben_Gvir_3_(cropped).jpg" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
       <li>Bezalel Smotrich — Avi Ohayon — <a href="https://commons.wikimedia.org/wiki/File:Bezalel_Smotrich.jpg" target="_blank" rel="noopener">fichier</a> — <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
@@ -290,173 +275,10 @@ document.getElementById("done").addEventListener("click",()=>{
       v.innerHTML=`<div class="vt">Coalition formée : ${total} sièges.</div><p>Majorité atteinte, aucun veto déclaré entre tes partenaires. <strong>${big.l}</strong> (${big.n}), à la tête du plus gros parti de ta coalition, devient Premier ministre.${total<66?" Attention : avec une marge aussi courte, chaque député devient un faiseur de roi.":""}</p>`;
     }
   }
-  if(total){
-    sendForm();
-    prepareStory();
-  }
   v.scrollIntoView({behavior:"smooth",block:"center"});
 });
 document.getElementById("clear").addEventListener("click",()=>{sel.clear();render();});
 render();
-
-/* ---------- Carte de partage story (1080×1920) ---------- */
-const HANDLE = "@electionsisraeliennes";
-
-function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
-
-function buildStory(){
-  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
-  const x=c.getContext("2d");
-  const chosen=PARTIES.filter(p=>sel.has(p.id));
-  const total=chosen.reduce((s,p)=>s+p.s,0);
-
-  x.fillStyle="#fff";x.fillRect(0,0,W,H);
-  x.fillStyle="#EDE7E0";x.fillRect(0,0,W/2,28);
-  x.fillStyle="#F24E07";x.fillRect(W/2,0,W/2,28);
-
-  x.textAlign="center";x.textBaseline="middle";
-  x.strokeStyle="#111";x.lineWidth=4;rr(x,W/2-200,92,400,74,12);x.stroke();
-  x.fillStyle="#111";x.font='700 30px "Space Mono",monospace';
-  x.fillText("ÉLECTIONS 2026",W/2,131);
-
-  const g=x.createLinearGradient(90,0,990,0);
-  g.addColorStop(0,"#F24E07");g.addColorStop(.5,"#FF7A33");g.addColorStop(1,"#F24E07");
-  x.fillStyle=g;rr(x,90,200,900,150,20);x.fill();
-  x.fillStyle="#fff";x.font='800 104px "Baloo 2",system-ui,sans-serif';
-  x.fillText("MA COALITION",W/2,282);
-
-  /* hémicycle */
-  const PITCH=48,SIZE=30,ROWS=[16,20,24,28,32],cx=W/2,cy=1010,cells=[];
-  ROWS.forEach(n=>{const r=PITCH*n/Math.PI;
-    for(let i=0;i<n;i++){const a=Math.PI-(i+.5)*(Math.PI/n);
-      cells.push({a,x:cx+Math.cos(a)*r,y:cy-Math.sin(a)*r});}});
-  cells.sort((p,q)=>q.a-p.a);
-  let k=0;
-  chosen.forEach(p=>{for(let i=0;i<p.s;i++){if(cells[k]){x.fillStyle=p.c;rr(x,cells[k].x-SIZE/2,cells[k].y-SIZE/2,SIZE,SIZE,8);x.fill();}k++;}});
-  for(;k<cells.length;k++){x.fillStyle="#DAD3CB";rr(x,cells[k].x-SIZE/2,cells[k].y-SIZE/2,SIZE,SIZE,8);x.fill();}
-
-  /* compteur dans le creux */
-  x.fillStyle=total>=61?"#1E5BF0":"#F24E07";
-  x.font='800 138px "Baloo 2",system-ui,sans-serif';
-  x.fillText(String(total),cx,cy-168);
-  x.fillStyle="#6B6259";x.font='400 30px "Space Mono",monospace';
-  x.fillText("SIÈGES SUR 120",cx,cy-72);
-
-  /* verdict */
-  const fr=(typeof frictions==="function")?frictions():[];
-  let line,col;
-  if(total>=61&&!fr.length){line="Gouvernement formé.";col="#1E5BF0";}
-  else if(total>=61){line="Majorité… mais ça ne tient pas.";col="#F24E07";}
-  else {line="Il manque "+(61-total)+(total===60?" siège.":" sièges.");col="#F24E07";}
-  x.fillStyle=col;
-  let fs=60;
-  do{ x.font='800 '+fs+'px "Baloo 2",system-ui,sans-serif'; fs-=2; }
-  while(x.measureText(line).width>900 && fs>28);
-  x.fillText(line,cx,cy+105);
-
-  /* liste des partis */
-  const zoneTop=cy+185,bottom=1735,n=Math.max(chosen.length,1);
-  const rowH=Math.min(84,(bottom-zoneTop)/n);
-  const top=zoneTop+((bottom-zoneTop)-rowH*n)/2;
-  x.textAlign="left";
-  chosen.forEach((p,i)=>{
-    const y=top+i*rowH,d=Math.min(rowH*.78,62);
-    x.save();
-    if(p._img&&p._img.complete&&p._img.naturalWidth){
-      x.beginPath();x.arc(120+d/2,y+rowH/2,d/2,0,7);x.closePath();x.clip();
-      x.drawImage(p._img,120,y+rowH/2-d/2,d,d);x.restore();
-      x.strokeStyle=p.c;x.lineWidth=4;x.beginPath();x.arc(120+d/2,y+rowH/2,d/2,0,7);x.stroke();
-    }else{
-      x.fillStyle=p.c;x.beginPath();x.arc(120+d/2,y+rowH/2,d/2,0,7);x.fill();x.restore();
-    }
-    x.fillStyle="#111";x.font='600 '+Math.round(rowH*.42)+'px "Poppins",system-ui,sans-serif';
-    x.textBaseline="middle";x.fillText(p.n,120+d+26,y+rowH/2);
-    x.textAlign="right";x.fillStyle=p.c;
-    x.font='800 '+Math.round(rowH*.56)+'px "Baloo 2",system-ui,sans-serif';
-    x.fillText(String(p.s),960,y+rowH/2);x.textAlign="left";
-  });
-
-  /* pied */
-  x.textAlign="center";
-  x.fillStyle="#F24E07";x.fillRect(90,1790,900,4);
-  x.fillStyle="#111";x.font='800 46px "Baloo 2",system-ui,sans-serif';
-  x.fillText(HANDLE,cx,1845);
-  x.fillStyle="#6B6259";x.font='400 26px "Space Mono",monospace';
-  x.fillText("COMPOSE LA TIENNE — 27 OCTOBRE 2026",cx,1888);
-  return c;
-}
-
-let storyBlob=null, storyBusy=false;
-const WEBHOOK="https://hook.eu1.make.com/amek1ytqx97tqcvbpe7t68e73gbkq8an";
-
-async function prepareStory(){
-  storyBlob=null; storyBusy=true;
-  try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
-  try{
-    const canvas=buildStory();
-    storyBlob=await new Promise(r=>canvas.toBlob(r,"image/png"));
-  }catch(e){ storyBlob=null; }
-  storyBusy=false;
-}
-
-function sendForm(){
-  const v=document.getElementById("verdict");
-  if(document.getElementById("sendbox")) return;
-  const box=document.createElement("div");
-  box.id="sendbox";box.className="sendbox";
-  box.innerHTML=
-    '<p class="sendtitle">Envoie ta coalition — on la publie et on la commente sur le compte.</p>'+
-    '<div class="sendrow">'+
-      '<input id="handle" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="@toncompte" maxlength="40">'+
-      '<button type="button" id="sendbtn">Envoyer</button>'+
-    '</div>'+
-    '<label class="sendok"><input type="checkbox" id="consent"> J\'accepte que ma coalition et mon compte soient publiés par @electionsisraeliennes.</label>'+
-    '<p class="sendmsg" id="sendmsg"></p>';
-  v.appendChild(box);
-  document.getElementById("sendbtn").addEventListener("click",submitCoalition);
-}
-
-function msg(t,ok){
-  const m=document.getElementById("sendmsg");
-  if(m){ m.textContent=t; m.className="sendmsg"+(ok?" ok":""); }
-}
-
-async function submitCoalition(){
-  const btn=document.getElementById("sendbtn");
-  const handle=(document.getElementById("handle").value||"").trim();
-  const consent=document.getElementById("consent").checked;
-  if(!handle){ msg("Indique ton compte Instagram pour qu'on puisse te taguer."); return; }
-  if(!consent){ msg("Coche la case pour autoriser la publication."); return; }
-
-  btn.disabled=true; msg("Envoi en cours…");
-  if(!storyBlob) await prepareStory();
-  if(!storyBlob){ btn.disabled=false; msg("L'image n'a pas pu être générée. Réessaie."); return; }
-
-  const chosen=PARTIES.filter(p=>sel.has(p.id));
-  const total=chosen.reduce((s,p)=>s+p.s,0);
-  const fr=(typeof frictions==="function")?frictions():[];
-  const verdict = total<61 ? ("Il manque "+(61-total)+" sièges")
-                : (fr.length ? "Majorité atteinte mais coalition incompatible" : "Gouvernement formable");
-
-  const fd=new FormData();
-  fd.append("handle", handle.startsWith("@")?handle:"@"+handle);
-  fd.append("total", String(total));
-  fd.append("verdict", verdict);
-  fd.append("parties", chosen.map(p=>p.n+" ("+p.s+")").join(", "));
-  fd.append("date", new Date().toISOString());
-  fd.append("image", storyBlob, "coalition.png");
-
-  try{
-    const r=await fetch(WEBHOOK,{method:"POST",body:fd});
-    if(!r.ok) throw new Error(r.status);
-    document.getElementById("sendbox").innerHTML=
-      '<p class="sendtitle ok">C\'est envoyé — merci !</p>'+
-      '<p class="sendmsg ok">On publie une sélection de coalitions chaque semaine sur @electionsisraeliennes. Surveille tes notifications.</p>';
-  }catch(e){
-    btn.disabled=false;
-    msg("L'envoi a échoué. Vérifie ta connexion et réessaie.");
-  }
-}
 
 </script>
 </body>
